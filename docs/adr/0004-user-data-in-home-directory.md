@@ -1,0 +1,3 @@
+# User data lives in `~/.financial-support/`, outside any plugin or project
+
+The Depot, Watchlist, Theses, Investor Profile, Journal and API keys are stored in one fixed directory, `~/.financial-support/`, which an environment variable can override. They are never stored in the plugin install directory, which is versioned and cleaned up on update, or in Claude's `${CLAUDE_PLUGIN_DATA}`, which is Claude-only and deleted on uninstall. They are also not stored per project. That way Claude Code and Gemini share one Depot no matter which folder a session starts in, and nothing personal ever lands in the (possibly public) repo.

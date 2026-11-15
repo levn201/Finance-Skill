@@ -1,0 +1,3 @@
+# Numbers come from bundled scripts and optional API keys; web search is for context
+
+Screening and Assessments need reliable figures (prices, fundamentals, Catalyst dates), and web search alone gets them wrong too often. So skills bundle small Python scripts that fetch figures from free sources (e.g. `yfinance`, SEC EDGAR). Free-tier API keys are optional and improve coverage when present. Web search is used for news, politics and context, not for figures. Bundled scripts are part of the Agent Skills standard, so this stays compatible with ADR 0001. The cost is a Python runtime as a dependency.

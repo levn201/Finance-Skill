@@ -1,0 +1,3 @@
+# Skills degrade to Lite Mode where scripts or the data directory are unavailable
+
+The investor also wants to use the skills in the Claude and Gemini apps, where bundled scripts may not reach external sites and nothing persists between chats. So every skill first checks whether it can run scripts and reach `~/.financial-support/`. If it can't, it runs in Lite Mode: figures come from web search and are visibly marked as unverified by a data fetch, and the Depot comes from a Depot Snapshot or from the chat. In Lite Mode nothing is stored. Strict sourcing still applies. This deliberately relaxes ADR 0003 and ADR 0004 for app surfaces only.
