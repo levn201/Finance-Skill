@@ -1,0 +1,15 @@
+{
+  "name": "financial-support",
+  "description": "Research assistant skills for private investors",
+  "owner": {
+    "name": "levn201"
+  },
+  "plugins": [
+    {
+      "name": "financial-support",
+      "displayName": "Financial Support",
+      "source": "./",
+      "description": "Personal research assistant for private investors: assessments, catalysts, market brief, screening and plain-language explanations"
+    }
+  ]
+}
