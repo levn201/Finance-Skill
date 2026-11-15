@@ -56,13 +56,21 @@ In app chat the skills may run in **Lite Mode** (see below).
 gemini extensions install https://github.com/levn201/Financial-Support-Skill
 ```
 
-### Gemini app
+### Gemini app and ChatGPT app
 
-Upload `dist/financial-support.zip` as a skill (gemini.google.com or the Mac app). The ZIP is built by a script, which is not available yet ([#16](https://github.com/levn201/Financial-Support-Skill/issues/16)). The Gemini app always runs in Lite Mode.
+These apps take uploaded skills but no plugins, so there is one bundle for both. It always runs in Lite Mode.
+
+1. Build it: `uv run --script scripts/build_app_bundle.py` writes `dist/financial-support.zip`.
+2. Upload it:
+   - **Gemini:** on gemini.google.com or in the Mac app, open **Settings → Skills → Upload** and choose the ZIP.
+   - **ChatGPT:** open **Plugins → Skills** and upload the ZIP.
+3. To use your Depot there, ask the `depot` skill in Claude Code or the Gemini CLI for a **Depot Snapshot** and paste or attach it in the chat.
+
+The bundle is generated from `skills/` and never edited by hand. Rebuild and upload it again after an update.
 
 ## Full mode and Lite Mode
 
-| | Full mode (Claude Code, Gemini CLI) | Lite Mode (apps) |
+| | Full mode (Claude Code, Gemini CLI) | Lite Mode (Claude, Gemini and ChatGPT apps) |
 |---|---|---|
 | Figures | Fetched by bundled scripts (`yfinance`, SEC EDGAR, optional Finnhub) | From web search, marked as unverified |
 | Your Depot, Theses, Journal | Stored in `~/.financial-support/` | From a Depot Snapshot you paste or attach; nothing is stored |
@@ -83,6 +91,7 @@ Everything works without these. Run the `setup` skill to enter them, or set them
 ```bash
 uv sync
 uv run pytest
+uv run --script scripts/build_app_bundle.py   # app bundle in dist/
 ```
 
 ## License
