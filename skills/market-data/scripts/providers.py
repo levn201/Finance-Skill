@@ -84,6 +84,36 @@ def yahoo_estimates(symbol: str) -> dict[str, list[dict[str, Any]]]:
     return out
 
 
+def yahoo_cashflow(symbol: str) -> list[dict[str, Any]]:
+    """Annual free cash flow and stock-based compensation, one row per fiscal year (NaN -> None)."""
+    try:
+        frame = _yf().Ticker(symbol).cashflow
+    except Exception:
+        return []
+    if frame is None or frame.empty:
+        return []
+    rows = []
+    for col in frame.columns:
+        def cell(name):
+            if name not in frame.index:
+                return None
+            v = frame.at[name, col]
+            return None if v != v else float(v)
+        rows.append({"year": str(col)[:10], "fcf": cell("Free Cash Flow"), "sbc": cell("Stock Based Compensation")})
+    return rows
+
+
+def yahoo_growth_estimates(symbol: str) -> dict[str, Any]:
+    """Analyst growth estimates for the stock: 0q, +1q, 0y, +1y and LTG (long-term), as fractions."""
+    try:
+        frame = _yf().Ticker(symbol).growth_estimates
+    except Exception:
+        return {}
+    if frame is None or frame.empty or "stockTrend" not in frame.columns:
+        return {}
+    return {str(k): (None if v != v else float(v)) for k, v in frame["stockTrend"].items()}
+
+
 def yahoo_search(query: str, limit: int = 8) -> list[dict[str, Any]]:
     quotes = _yf().Search(query, max_results=limit).quotes
     return [
