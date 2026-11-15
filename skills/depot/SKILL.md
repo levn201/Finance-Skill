@@ -13,6 +13,14 @@ uv run --script <this skill's directory>/scripts/depot.py <command>
 
 Every command prints JSON with `ok`, `error`, `notes`, `warnings` and `depot`. The data lives in `<data dir>/depot.json`.
 
+## Scripts of other skills
+
+The other financial-support skills sit next to this skill's directory. Run their scripts exactly like this, always with `uv run --script`, never with plain `python3` (the scripts need Python 3.11+ and their own dependencies):
+
+```bash
+uv run --script <this skill's directory>/../market-data/scripts/fetch.py <command>
+```
+
 ## 1. Mode
 
 If the script can't run, you are in **Lite Mode** (section 6).

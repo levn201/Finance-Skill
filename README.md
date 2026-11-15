@@ -28,7 +28,7 @@ It is inspired by [anthropics/financial-services](https://github.com/anthropics/
 | `screen` | Finds stocks by weighted criteria (fundamentals, dividend, valuation, theme, technicals) | available |
 | `valuation` | Fair value via DCF and peer comparison | planned ([#13](https://github.com/levn201/Financial-Support-Skill/issues/13)) |
 | `sector` | Sector overview and competitors | planned ([#14](https://github.com/levn201/Financial-Support-Skill/issues/14)) |
-| `explain` | Explains terms and connections in plain language ("why does the stock fall despite good results?") | planned ([#15](https://github.com/levn201/Financial-Support-Skill/issues/15)) |
+| `explain` | Explains terms and connections in plain language ("why does the stock fall despite good results?") | available |
 | `market-data` | Internal helper that the other skills use to fetch prices, fundamentals and dates; you don't call it yourself | available |
 
 Outputs answer in the language you write in.

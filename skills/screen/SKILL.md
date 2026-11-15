@@ -12,6 +12,15 @@ uv run --script <this skill's directory>/scripts/screen.py --region de [--sector
 uv run --script <this skill's directory>/scripts/screen.py --symbols RHM.DE HAG.DE ... [--fit RHM.DE=95 HAG.DE=90 ...]
 ```
 
+## Scripts of other skills
+
+The other financial-support skills sit next to this skill's directory. Run their scripts exactly like this, always with `uv run --script`, never with plain `python3` (the scripts need Python 3.11+ and their own dependencies):
+
+```bash
+uv run --script <this skill's directory>/../market-data/scripts/fetch.py <command>
+uv run --script <this skill's directory>/../depot/scripts/depot.py show
+```
+
 ## 1. Understand the request
 
 Work out four things:

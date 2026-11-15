@@ -13,6 +13,14 @@ uv run --script <this skill's directory>/scripts/upcoming.py [--days 90] [--symb
 
 The script reads the Depot and Watchlist itself. It returns `calendar.events` sorted by date, each with `in_days`, `critical` (14 days or less), `estimated` and `source`, plus `no_upcoming_earnings`, `warnings` and `sources`. With `--save` it also returns `diff` against the last saved calendar.
 
+## Scripts of other skills
+
+The other financial-support skills sit next to this skill's directory. Run their scripts exactly like this, always with `uv run --script`, never with plain `python3` (the scripts need Python 3.11+ and their own dependencies):
+
+```bash
+uv run --script <this skill's directory>/../market-data/scripts/fetch.py <command>
+```
+
 ## 1. Mode
 
 Check the mode with market-data `status`. In Lite Mode, see section 5.

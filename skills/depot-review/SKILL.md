@@ -12,6 +12,17 @@ uv run --script <this skill's directory>/scripts/review.py dossier
 uv run --script <this skill's directory>/scripts/review.py save < review.json
 ```
 
+## Scripts of other skills
+
+The other financial-support skills sit next to this skill's directory. Run their scripts exactly like this, always with `uv run --script`, never with plain `python3` (the scripts need Python 3.11+ and their own dependencies):
+
+```bash
+uv run --script <this skill's directory>/../market-data/scripts/fetch.py <command>
+uv run --script <this skill's directory>/../setup/scripts/investor_profile.py show
+uv run --script <this skill's directory>/../thesis/scripts/thesis.py <command>
+uv run --script <this skill's directory>/../assess/scripts/journal.py <command>
+```
+
 ## 1. Context
 
 1. Run market-data `status`. In Lite Mode, see section 6.

@@ -50,6 +50,22 @@ def test_every_skill_is_well_formed():
         assert fields.get("description"), f"{skill.name}: description is required"
 
 
+def test_cross_skill_scripts_have_exact_commands():
+    """A skill that mentions another skill's script must show the exact `../<skill>/scripts/<file>` path.
+
+    Without it, agents guess the command (e.g. plain python3 on a too-old system Python) and fail.
+    """
+    owners = {p.name: skill.name for skill in skill_dirs() for p in (skill / "scripts").glob("*.py")}
+    for skill in skill_dirs():
+        text = (skill / "SKILL.md").read_text(encoding="utf-8")
+        for script, owner in owners.items():
+            if owner == skill.name or not re.search(rf"\b{re.escape(script)}\b", text):
+                continue
+            assert f"../{owner}/scripts/{script}" in text, (
+                f"{skill.name}/SKILL.md mentions {script} but not the command path ../{owner}/scripts/{script}"
+            )
+
+
 def test_readme_lists_every_skill():
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     listed = set(re.findall(r"^\| `([a-z0-9-]+)` \|", readme, re.MULTILINE))
