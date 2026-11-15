@@ -41,6 +41,7 @@ def cmd_status(_: argparse.Namespace) -> dict:
     profile = data_dir / "profile.json"
     data = {
         "data_dir": str(data_dir),
+        "inbox": str(data_dir / "inbox"),
         "data_dir_exists": data_dir.exists(),
         "data_dir_writable": os.access(probe, os.W_OK),
         "profile_exists": profile.is_file(),

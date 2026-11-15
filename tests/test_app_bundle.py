@@ -19,7 +19,7 @@ def test_bundle_contents(tmp_path):
     assert all(n.startswith("financial-support/") for n in names)  # one top-level folder
     assert names.count("financial-support/SKILL.md") == 1
     skills = {p.name for p in (ROOT / "skills").iterdir() if (p / "SKILL.md").is_file()}
-    assert set(bab.WORKFLOWS) == skills - {"market-data"}, "add new skills to WORKFLOWS (or exclude them on purpose)"
+    assert set(bab.WORKFLOWS) == skills - bab.NOT_IN_BUNDLE, "add new skills to WORKFLOWS (or exclude them on purpose)"
     for name in bab.WORKFLOWS:
         ref = f"references/{name}.md"
         assert f"financial-support/{ref}" in files and f"`{ref}`" in files["financial-support/SKILL.md"]

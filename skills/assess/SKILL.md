@@ -92,7 +92,7 @@ Use this structure, with headings in the investor's language:
 
 ## 5. Save to the Journal
 
-**Save before you present.** The save returns the `diff` to the last Assessment, which feeds part 6 of the output. Pipe one JSON entry into `journal.py save assessment`:
+**Save before you present.** The save returns the `diff` to the last Assessment, which feeds part 6 of the output. Save one JSON entry with `journal.py save assessment --input <inbox>/assessment.json`. Write the JSON with your file-writing tool to `<inbox>/assessment.json` and pass `--input <that file>`. `<inbox>` is the `inbox` path from market-data `status`. The script deletes the file after a successful save. Don't put JSON in the shell command itself: Claude Code blocks commands that contain `{"`. The entry:
 
 ```json
 {"subject": "SAP.DE",

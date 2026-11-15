@@ -28,6 +28,7 @@ It is inspired by [anthropics/financial-services](https://github.com/anthropics/
 | `screen` | Finds stocks by weighted criteria (fundamentals, dividend, valuation, theme, technicals) | available |
 | `valuation` | Fair value range via DCF, what growth the price implies, and peer comparison | available |
 | `sector` | Which sectors lead or lag the market and why; one company against its competitors | available |
+| `daily` | Unattended weekday run: Catalysts, Market Brief, Depot Review when due, a short Daily Report with a phone notification | available |
 | `explain` | Explains terms and connections in plain language ("why does the stock fall despite good results?") | available |
 | `market-data` | Internal helper that the other skills use to fetch prices, fundamentals and dates; you don't call it yourself | available |
 
@@ -76,6 +77,20 @@ The bundle is generated from `skills/` and never edited by hand. Rebuild and upl
 | Your Depot, Theses, Journal | Stored in `~/.financial-support/` | From a Depot Snapshot you paste or attach; nothing is stored |
 
 Your personal data never lives in this repo or in the plugin folder.
+
+## Daily run
+
+`daily` runs on weekday mornings as a **local scheduled task in the Claude desktop app**. It runs on your Mac, so it can read your Depot in `~/.financial-support/`.
+
+1. In the Claude desktop app, create a new scheduled task (**Code → Scheduled → New task**, the exact menu names may differ):
+   - **Trigger:** Weekdays at 07:30, or Custom `30 7 * * 1-5`
+   - **Local folder:** this repo
+   - **Instructions:** `Read skills/daily/SKILL.md in this folder and follow it exactly.`
+2. Click **Run now** once and choose **always allow** for each prompt: `uv run`, web search, web fetch, and writing files to `~/.financial-support/inbox/`, where the run hands its reports to the scripts. Later runs then need no approvals. The run only writes to the inbox and the Journal. It never changes your Depot, Theses or profile.
+3. For phone notifications, install the Claude app on your phone and turn on **Settings → Notifications → Scheduled tasks**.
+4. In the desktop app, turn on **Keep computer awake**. Runs only start while the app is open and the computer is awake. After sleep, Desktop starts one catch-up run, and the report says it came late.
+
+Each run saves `journal/<date>/daily.md` plus the full Catalysts and Market Brief reports, and the Depot Review when one is due: on Mondays, after results of one of your holdings, or after a move of 5 % or more.
 
 ## Optional settings
 

@@ -103,8 +103,15 @@ def run(argv: list[str], stdin: str | None) -> dict[str, Any]:
 
 
 def main() -> int:
-    stdin = None if sys.stdin.isatty() else sys.stdin.read()
-    result = run(sys.argv[1:], stdin)
+    try:
+        argv, text, path = journal.take_input(sys.argv[1:])
+    except journal.JournalError as exc:
+        print(json.dumps({"ok": False, "error": str(exc)}))
+        return 1
+    stdin = text if text is not None else (None if sys.stdin.isatty() else sys.stdin.read())
+    result = run(argv, stdin)
+    if result["ok"]:
+        journal.consume_input(md.data_dir(), path)
     print(json.dumps(result, indent=2, ensure_ascii=False, default=str))
     return 0 if result["ok"] else 1
 

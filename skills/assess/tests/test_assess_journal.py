@@ -98,3 +98,23 @@ def test_cli(tmp_path):
     assert len(jr.run(["history", "assessment", "sap.de"], environ=env)["entries"]) == 1
     assert not jr.run(["save", "assessment"], "not json", env)["ok"]
     assert jr.run(["last", "assessment", "AAPL"], environ=env)["entry"] is None
+
+
+def test_input_file_taken_and_consumed_only_from_inbox(tmp_path):
+    inbox = tmp_path / jr.INBOX_DIR
+    inbox.mkdir()
+    f = inbox / "assessment.json"
+    f.write_text('{"a": 1}', encoding="utf-8")
+    argv, text, path = jr.take_input(["save", "assessment", "--input", str(f)])
+    assert argv == ["save", "assessment"] and text == '{"a": 1}' and path == f
+    outside = tmp_path / "elsewhere.json"
+    outside.write_text("[]", encoding="utf-8")
+    jr.consume_input(tmp_path, outside)
+    assert outside.exists()                      # never deletes outside the inbox
+    jr.consume_input(tmp_path, f)
+    assert not f.exists()
+    assert jr.take_input(["show"]) == (["show"], None, None)
+    with pytest.raises(jr.JournalError):
+        jr.take_input(["save", "x", "--input"])
+    with pytest.raises(jr.JournalError):
+        jr.take_input(["save", "x", "--input", str(tmp_path / "missing.json")])

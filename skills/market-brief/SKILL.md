@@ -9,7 +9,7 @@ Explains what is moving markets and why, and connects it to the investor's own P
 
 ```bash
 uv run --script <this skill's directory>/scripts/brief.py data
-uv run --script <this skill's directory>/scripts/brief.py save < brief.json
+uv run --script <this skill's directory>/scripts/brief.py save --input <inbox>/market-brief.json
 ```
 
 ## Scripts of other skills
@@ -59,13 +59,7 @@ uv run --script <this skill's directory>/../market-data/scripts/fetch.py <comman
 
 ## 3. Save, then present
 
-Pass the brief to `brief.py save` on stdin with a quoted heredoc, so no temporary file is needed:
-
-```bash
-uv run --script <this skill's directory>/scripts/brief.py save <<'JSON'
-{ ...the brief... }
-JSON
-```
+Write the JSON with your file-writing tool to `<inbox>/market-brief.json` and pass `--input <that file>`. `<inbox>` is the `inbox` path from market-data `status`. The script deletes the file after a successful save. Don't put JSON in the shell command itself: Claude Code blocks commands that contain `{"`.
 
 The brief looks like this:
 

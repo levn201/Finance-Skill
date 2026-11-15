@@ -21,7 +21,9 @@ SKILLS = ROOT / "skills"
 BUNDLE = "financial-support"
 OUT = ROOT / "dist" / f"{BUNDLE}.zip"
 
-# Workflows in the bundle, in routing order. market-data is not a workflow: its Lite Mode rules go into SKILL.md.
+# Workflows in the bundle, in routing order. Not in it: market-data (its Lite Mode rules go into SKILL.md) and
+# daily (an unattended run needs scripts and the Journal).
+NOT_IN_BUNDLE = {"market-data", "daily"}
 WORKFLOWS = ["assess", "depot-review", "depot", "thesis", "catalysts", "earnings", "valuation",
              "sector", "market-brief", "screen", "explain", "setup"]
 DROP_ALWAYS = {"Scripts of other skills", "Settings", "Profile format"}
@@ -31,7 +33,7 @@ DROP = {  # sections that only make sense with scripts and stored data; the buil
     "setup": ["4. Optional settings (keys)"],
     "depot": ["4. Base currency", "5. Depot Snapshot"],
 }
-FORBIDDEN = ("uv run", "--script", "Scripts of other skills")  # must never reach the bundle
+FORBIDDEN = ("uv run", "--script", "Scripts of other skills", "--input", "<inbox>")  # must never reach the bundle
 DESCRIPTION = (
     "Research assistant for a private investor in German, EU and US stocks and ETFs (app edition). "
     "Gives buy, hold or sell Assessments with short- and medium-term Outlook, checks the whole Depot, "
@@ -86,7 +88,7 @@ def sections(body: str) -> tuple[str, list[tuple[str, str]]]:
 def strip_script_blocks(text: str) -> str:
     """Remove fenced code blocks that run scripts, and lines that only introduce a script call."""
     text = re.sub(r"```[a-z]*\n(?:(?!```).)*?(?:uv run|--script)(?:(?!```).)*?```\n?", "", text, flags=re.DOTALL)
-    text = re.sub(r"^.*\bon stdin with a quoted heredoc.*\n", "", text, flags=re.MULTILINE)
+    text = re.sub(r"^.*(?:<inbox>|--input).*\n", "", text, flags=re.MULTILINE)  # lines about the script inbox
     return re.sub(r"\n{3,}", "\n\n", text)
 
 

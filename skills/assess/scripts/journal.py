@@ -42,6 +42,32 @@ class JournalError(ValueError):
     pass
 
 
+# --- input files -------------------------------------------------------------------------------
+# Unattended runs can't pass JSON on the command line (Claude Code blocks `{"` in shell commands), so every
+# script that reads JSON on stdin also takes `--input <file>`. Agents write such files to <data dir>/inbox/.
+
+INBOX_DIR = "inbox"
+
+
+def take_input(argv: list[str]) -> tuple[list[str], str | None, Path | None]:
+    """Pop `--input PATH` from argv: (remaining argv, the file's text, its path), or (argv, None, None)."""
+    if "--input" not in argv:
+        return argv, None, None
+    i = argv.index("--input")
+    if i + 1 >= len(argv):
+        raise JournalError("--input needs a file path")
+    path = Path(argv[i + 1]).expanduser()
+    if not path.is_file():
+        raise JournalError(f"input file not found: {path}")
+    return argv[:i] + argv[i + 2:], path.read_text(encoding="utf-8"), path
+
+
+def consume_input(root: Path, path: Path | None) -> None:
+    """Delete an input file after a successful save, but only if it lies in <data dir>/inbox/."""
+    if path is not None and path.resolve().parent == (root / INBOX_DIR).resolve():
+        path.unlink(missing_ok=True)
+
+
 def data_dir(environ: dict[str, str] | None = None) -> Path:
     env = os.environ if environ is None else environ
     override = env.get(DATA_DIR_ENV)
@@ -211,8 +237,15 @@ def run(argv: list[str], stdin: str | None = None, environ: dict[str, str] | Non
 
 
 def main() -> int:
-    stdin = sys.stdin.read() if sys.argv[1:2] == ["save"] else None
-    result = run(sys.argv[1:], stdin)
+    try:
+        argv, text, path = take_input(sys.argv[1:])
+    except JournalError as exc:
+        print(json.dumps({"ok": False, "error": str(exc)}))
+        return 1
+    stdin = text if text is not None else (sys.stdin.read() if argv[:1] == ["save"] else None)
+    result = run(argv, stdin)
+    if result["ok"]:
+        consume_input(data_dir(), path)
     print(json.dumps(result, indent=2, ensure_ascii=False))
     return 0 if result["ok"] else 1
 

@@ -110,13 +110,20 @@ def cmd_save(root: Path, stdin: str) -> dict[str, Any]:
 def main() -> int:
     parser = argparse.ArgumentParser(prog="brief.py")
     parser.add_argument("command", choices=("data", "save"))
-    args = parser.parse_args()
+    try:
+        argv, text, path = journal.take_input(sys.argv[1:])
+    except journal.JournalError as exc:
+        print(json.dumps({"ok": False, "error": str(exc)}))
+        return 1
+    args = parser.parse_args(argv)
     root = md.data_dir()
     result: dict[str, Any] = {"command": args.command, "ok": True, "error": None}
     try:
-        result.update(cmd_data(root) if args.command == "data" else cmd_save(root, sys.stdin.read()))
+        result.update(cmd_data(root) if args.command == "data" else cmd_save(root, text if text is not None else sys.stdin.read()))
     except (bc.BriefError, journal.JournalError, json.JSONDecodeError) as exc:
         result.update(ok=False, error=str(exc))
+    if result["ok"] and args.command == "save":
+        journal.consume_input(root, path)
     print(json.dumps(result, indent=2, ensure_ascii=False, default=str))
     return 0 if result["ok"] else 1
 

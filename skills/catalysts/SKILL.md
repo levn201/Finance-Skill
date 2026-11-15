@@ -8,8 +8,10 @@ description: Lists upcoming Catalysts for the investor's Depot and Watchlist (qu
 Answers "what's coming, and why should I care?" for everything the investor holds or watches.
 
 ```bash
-uv run --script <this skill's directory>/scripts/upcoming.py [--days 90] [--symbol X ...] [--save] < extra.json
+uv run --script <this skill's directory>/scripts/upcoming.py [--days 90] [--symbol X ...] [--save] [--input <inbox>/catalysts.json]
 ```
+
+Write the extra events (a JSON list) with your file-writing tool to `<inbox>/catalysts.json` and pass `--input <that file>`. `<inbox>` is the `inbox` path from market-data `status`. The script deletes the file after a successful save. Don't put JSON in the shell command itself: Claude Code blocks commands that contain `{"`.
 
 The script reads the Depot and Watchlist itself. It returns `calendar.events` sorted by date, each with `in_days`, `critical` (14 days or less), `estimated` and `source`, plus `no_upcoming_earnings`, `warnings` and `sources`. With `--save` it also returns `diff` against the last saved calendar.
 
@@ -38,7 +40,7 @@ Before the run, use web search for these, preferring primary sources:
 
 Add only dates you found in a source. If the source only says "late January", leave the event out and mention it in the text instead. Set `"estimated": true` when the source itself calls the date preliminary.
 
-Then run the calendar with the extras on stdin, saving it:
+Then run the calendar with the extras as `--input`, saving it:
 
 ```bash
 printf '%s' '[…extra events…]' | uv run --script …/upcoming.py --save

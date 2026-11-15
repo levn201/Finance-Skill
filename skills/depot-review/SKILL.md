@@ -9,8 +9,10 @@ The overview the investor decides on. For each Instrument it reuses or makes an 
 
 ```bash
 uv run --script <this skill's directory>/scripts/review.py dossier
-uv run --script <this skill's directory>/scripts/review.py save < review.json
+uv run --script <this skill's directory>/scripts/review.py save --input <inbox>/depot-review.json
 ```
+
+Write the JSON with your file-writing tool to `<inbox>/depot-review.json` and pass `--input <that file>`. `<inbox>` is the `inbox` path from market-data `status`. The script deletes the file after a successful save. Don't put JSON in the shell command itself: Claude Code blocks commands that contain `{"`.
 
 ## Scripts of other skills
 
@@ -55,7 +57,7 @@ A data lookup that failed (`warnings` says so) means: assess that Instrument by 
 
 ## 3. Save the review
 
-Build the review and pipe it into `review.py save`:
+Build the review and save it with `review.py save --input` (see above):
 
 ```json
 {"summary": "2–3 sentences: overall state and the most important actions",
