@@ -27,7 +27,19 @@ Run `show`.
 
 **Language:** don't ask. Use the language the investor writes in and pass it as `init --language <code>` (`de`, `en`, …). It is only the default for unattended runs. Normally every output follows the language of the investor's message.
 
-Ask the remaining four questions **in one message**, each with its default so the investor can just say "passt so" or "defaults are fine". Explain each in one plain sentence:
+**If you have a multiple-choice question tool** (e.g. `AskUserQuestion` in Claude Code), ask all four questions in **one call** of that tool, in the investor's language:
+- one question per setting, with a short header ("Erklärtiefe", "Horizont", "Risiko", "Gewichtung")
+- the default as the first option, marked as recommended, and a one-line description on each option
+- for the weights, offer these presets; the tool's free-text option covers custom weights:
+
+| Preset | fundamentals | valuation | dividend | thematic | technical |
+|---|---|---|---|---|---|
+| Ausgewogen (default) | 30 | 25 | 15 | 15 | 15 |
+| Dividende | 25 | 20 | 40 | 5 | 10 |
+| Wachstum | 40 | 15 | 5 | 25 | 15 |
+| Günstig bewertet | 30 | 40 | 15 | 5 | 10 |
+
+**Otherwise** ask the four questions **in one message**, each with its default so the investor can just say "passt so" or "defaults are fine". Explain each in one plain sentence:
 
 | Setting | Values | Default | Meaning |
 |---|---|---|---|
