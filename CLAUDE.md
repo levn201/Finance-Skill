@@ -4,7 +4,7 @@
 
 ### Issue tracker
 
-Issues are tracked in GitHub Issues (levn201/Financial-Support-Skill) via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+Issues are tracked in GitHub Issues (levn201/Finance-Skill) via the `gh` CLI. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 

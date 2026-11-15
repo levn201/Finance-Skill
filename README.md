@@ -41,20 +41,20 @@ Full mode needs [`uv`](https://docs.astral.sh/uv/) on your machine (`brew instal
 ### Claude Code
 
 ```bash
-claude plugin marketplace add levn201/Financial-Support-Skill
+claude plugin marketplace add levn201/Finance-Skill
 claude plugin install financial-support@financial-support
 ```
 
 ### Claude app (web / desktop, chat and Cowork)
 
-Paid plan required. Go to **Customize → Plugins → +** and choose **Add marketplace**. Enter `levn201/Financial-Support-Skill`, then install **Financial Support**.
+Paid plan required. Go to **Customize → Plugins → +** and choose **Add marketplace**. Enter `levn201/Finance-Skill`, then install **Financial Support**.
 
 In app chat the skills may run in **Lite Mode** (see below).
 
 ### Gemini CLI
 
 ```bash
-gemini extensions install https://github.com/levn201/Financial-Support-Skill
+gemini extensions install https://github.com/levn201/Finance-Skill
 ```
 
 ### Gemini app and ChatGPT app
