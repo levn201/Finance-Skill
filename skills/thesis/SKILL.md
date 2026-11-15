@@ -92,6 +92,6 @@ Run `gaps` when the investor asks for an overview, or after `depot` changes. It 
 
 ## 6. Lite Mode
 
-- Ask the investor for their Thesis in chat, or read it if they paste one.
+- Read the Thesis from the `THESES` part of a Depot Snapshot if one is in the conversation. Otherwise ask the investor for it in chat.
 - Do the check as in section 3, with figures from web search marked as unverified (web search, not a data fetch), with source and date.
 - Nothing is saved. Say so.

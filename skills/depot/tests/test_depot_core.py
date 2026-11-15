@@ -177,6 +177,28 @@ def test_snapshot_lists_everything_and_marks_unknowns():
     assert text.rstrip().endswith("END SNAPSHOT")
 
 
+def test_snapshot_with_theses_and_profile():
+    depot, _ = depot_with((dc.add_position, "SAP.DE", 10, 180, None, "SAP SE"))
+    theses = {
+        "SAP.DE": {"symbol": "SAP.DE", "status": "active", "statement": "Cloud macht SAP profitabler",
+                   "horizon": "medium-term", "conviction": "medium", "verdict": "intact",
+                   "last_checked_at": "2026-11-01T10:00:00+00:00",
+                   "pillars": [{"id": 1, "text": "Cloud > 20 %", "status": "holds"}],
+                   "exit_triggers": ["Cloud < 15 % zwei Quartale"]},
+        "BAYN.DE": {"symbol": "BAYN.DE", "status": "archived", "statement": "old", "pillars": [], "exit_triggers": []},
+    }
+    profile = {"language": "de", "explanation_depth": "beginner", "default_horizon": "medium-term",
+               "risk_tolerance": "low", "screening_weights": {"fundamentals": 100}}
+    text = dc.render_snapshot(depot, "2026-11-15", theses=theses, profile=profile)
+    assert "PROFILE\nlanguage de | explanation_depth beginner | default_horizon medium-term | risk_tolerance low" in text
+    assert "- SAP.DE | Cloud macht SAP profitabler | medium-term | conviction medium | verdict intact (checked 2026-11-01)" in text
+    assert "  pillar 1: Cloud > 20 % [holds]" in text and "  exit: Cloud < 15 % zwei Quartale" in text
+    assert "BAYN.DE" not in text and "screening_weights" not in text
+    assert text.index("PROFILE") < text.index("POSITIONS") < text.index("THESES") < text.index("END SNAPSHOT")
+    empty = dc.render_snapshot(depot, "2026-11-15", theses={})
+    assert "THESES\n(none)" in empty and "PROFILE" not in empty
+
+
 def test_snapshot_of_empty_depot():
     text = dc.render_snapshot(dc.empty_depot(), "2026-11-15")
     assert text.count("(none)") == 2

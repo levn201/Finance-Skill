@@ -304,10 +304,18 @@ def _fmt(value: float | None) -> str:
     return "?" if value is None else f"{value:g}"
 
 
-def render_snapshot(depot: dict[str, Any], as_of: str) -> str:
-    """A short read-only text copy of Depot and Watchlist for app chats (Lite Mode)."""
+PROFILE_KEYS = ("language", "explanation_depth", "default_horizon", "risk_tolerance")
+
+
+def render_snapshot(depot: dict[str, Any], as_of: str, theses: dict[str, Any] | None = None,
+                    profile: dict[str, Any] | None = None) -> str:
+    """A short read-only text copy of Depot, Watchlist, active Theses and the Investor Profile for app chats
+    (Lite Mode). theses: the "theses" map of theses.json; profile: profile.json."""
     lines = [f"{SNAPSHOT_HEADER} | as of {as_of} | base {depot['base_currency']}",
-             "Read-only copy. Changes made in an app chat are not saved.", "", "POSITIONS"]
+             "Read-only copy. Changes made in an app chat are not saved.", ""]
+    if profile:
+        lines += ["PROFILE", " | ".join(f"{k} {profile[k]}" for k in PROFILE_KEYS if profile.get(k)), ""]
+    lines.append("POSITIONS")
     if not depot["positions"]:
         lines.append("(none)")
     for p in depot["positions"]:
@@ -319,5 +327,16 @@ def render_snapshot(depot: dict[str, Any], as_of: str) -> str:
     for w in depot["watchlist"]:
         note = f" | note: {w['note']}" if w.get("note") else ""
         lines.append(f"- {w['symbol']} | {w.get('name') or '?'}{note}")
+    active = [t for t in (theses or {}).values() if t.get("status") == "active"]
+    if theses is not None:
+        lines += ["", "THESES"]
+        if not active:
+            lines.append("(none)")
+    for t in sorted(active, key=lambda t: t["symbol"]):
+        checked = (t.get("last_checked_at") or "never")[:10]
+        lines.append(f"- {t['symbol']} | {t['statement']} | {t.get('horizon', '?')} | conviction {t.get('conviction', '?')}"
+                     f" | verdict {t.get('verdict', '?')} (checked {checked})")
+        lines += [f"  pillar {pl['id']}: {pl['text']} [{pl['status']}]" for pl in t.get("pillars", [])]
+        lines += [f"  exit: {e}" for e in t.get("exit_triggers", [])]
     lines += ["", "END SNAPSHOT"]
     return "\n".join(lines)

@@ -34,6 +34,14 @@ DATA_DIR_ENV = "FINANCIAL_SUPPORT_HOME"
 DEPOT_FILE = "depot.json"
 
 
+def _read_json(path: Path) -> Any:
+    """Another skill's file (theses.json, profile.json), or None if missing or unreadable."""
+    try:
+        return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else None
+    except (OSError, ValueError):
+        return None
+
+
 def data_dir() -> Path:
     override = os.environ.get(DATA_DIR_ENV)
     return Path(override).expanduser() if override else Path.home() / ".financial-support"
@@ -144,7 +152,10 @@ def run(argv: list[str]) -> dict[str, Any]:
             save(root, depot)
         result["depot"] = depot
         if args.command == "snapshot":
-            result["snapshot"] = dc.render_snapshot(depot, dc.now_iso()[:10])
+            theses = _read_json(root / "theses.json")
+            result["snapshot"] = dc.render_snapshot(depot, dc.now_iso()[:10],
+                                                    theses=(theses or {}).get("theses", {}),
+                                                    profile=_read_json(root / "profile.json"))
         if args.command == "show" and args.prices and depot["positions"]:
             quotes, fx, sources, warnings = fetch_prices(depot)
             result["valuation"], more = dc.value_depot(depot, quotes, fx)

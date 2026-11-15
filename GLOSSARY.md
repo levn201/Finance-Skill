@@ -17,7 +17,7 @@ A single Instrument held in the Depot, with quantity and entry price.
 _Avoid_: Holding, Investment
 
 **Depot Snapshot** (DE: _Depot-Snapshot_):
-A short, read-only text copy of the Depot and Watchlist that the investor carries into an app where the Depot itself can't be reached.
+A short, read-only text copy of the Depot, the Watchlist, the active Theses and the Investor Profile's main preferences, which the investor carries into an app where the stored data can't be reached.
 _Avoid_: Export, Backup
 
 **Watchlist** (DE: _Watchlist_):

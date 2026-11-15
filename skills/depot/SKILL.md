@@ -84,14 +84,14 @@ All values are in the base currency (default EUR). Change it with `base-currency
 
 ## 5. Depot Snapshot
 
-When the investor wants to use the Claude or Gemini app, run `snapshot` and give them the `snapshot` text in a code block. Tell them where it goes:
+When the investor wants to use an app (Claude, Gemini or ChatGPT), run `snapshot` and give them the `snapshot` text in a code block. It also carries the active Theses and the Investor Profile's language, explanation depth, horizon and risk tolerance. Tell them where it goes:
 - **Claude app:** add it to a Project's knowledge, or paste it into the chat.
-- **Gemini app:** attach it as a file or paste it.
+- **Gemini or ChatGPT app:** attach it as a file or paste it.
 
 The snapshot is a read-only copy. Remind the investor to create a new one after changes.
 
 ## 6. Lite Mode
 
-- **Reading the Depot:** if the conversation contains a Depot Snapshot (a block starting with `FINANCIAL-SUPPORT DEPOT SNAPSHOT v1`), read Positions and Watchlist from it. Otherwise ask the investor what they hold.
+- **Reading the Depot:** if the conversation contains a Depot Snapshot (a block starting with `FINANCIAL-SUPPORT DEPOT SNAPSHOT v1`), read Positions and Watchlist from it, and use its `PROFILE` and `THESES` parts if present. Otherwise ask the investor what they hold.
 - **Changes:** accept them for this conversation only. Say clearly that nothing is saved and that they should make the change in Claude Code or the Gemini CLI to keep it.
 - **Values:** get prices from web search, marked as unverified (web search, not a data fetch), with source and date. Do the same calculations as in section 3 and show the arithmetic so it can be checked.
