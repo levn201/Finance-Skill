@@ -21,7 +21,7 @@ It is inspired by [anthropics/financial-services](https://github.com/anthropics/
 | `depot` | Remembers your Positions and Watchlist from what you tell it ("I bought 10 SAP at €180"); creates a Depot Snapshot for the apps | available |
 | `thesis` | Records why you hold or watch a stock, and checks whether that reason still holds | available |
 | `assess` | Buy, hold or sell view on one stock, with short- and medium-term outlook, reasons for and against, and what would change the view | available |
-| `catalysts` | Upcoming earnings, AGMs, dividends and central-bank dates for your Depot and Watchlist | planned ([#8](https://github.com/levn201/Financial-Support-Skill/issues/8)) |
+| `catalysts` | Upcoming earnings, AGMs, dividends and central-bank dates for your Depot and Watchlist | available |
 | `earnings` | Before results: what's expected. After: what came in and why the price reacted | planned ([#9](https://github.com/levn201/Financial-Support-Skill/issues/9)) |
 | `market-brief` | Macro, volatility, politics and geopolitics, and what it means for your Depot | planned ([#10](https://github.com/levn201/Financial-Support-Skill/issues/10)) |
 | `depot-review` | Assessment of every Position plus your Watchlist as buy candidates, with a ranked summary | planned ([#11](https://github.com/levn201/Financial-Support-Skill/issues/11)) |
