@@ -27,7 +27,7 @@ It is inspired by [anthropics/financial-services](https://github.com/anthropics/
 | `depot-review` | Assessment of every Position plus your Watchlist as buy candidates, with a ranked summary | available |
 | `screen` | Finds stocks by weighted criteria (fundamentals, dividend, valuation, theme, technicals) | available |
 | `valuation` | Fair value range via DCF, what growth the price implies, and peer comparison | available |
-| `sector` | Sector overview and competitors | planned ([#14](https://github.com/levn201/Financial-Support-Skill/issues/14)) |
+| `sector` | Which sectors lead or lag the market and why; one company against its competitors | available |
 | `explain` | Explains terms and connections in plain language ("why does the stock fall despite good results?") | available |
 | `market-data` | Internal helper that the other skills use to fetch prices, fundamentals and dates; you don't call it yourself | available |
 
