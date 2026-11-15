@@ -25,7 +25,7 @@ It is inspired by [anthropics/financial-services](https://github.com/anthropics/
 | `earnings` | Before results: what's expected. After: what came in and why the price reacted | planned ([#9](https://github.com/levn201/Financial-Support-Skill/issues/9)) |
 | `market-brief` | Macro, volatility, politics and geopolitics, and what it means for your Depot | available |
 | `depot-review` | Assessment of every Position plus your Watchlist as buy candidates, with a ranked summary | available |
-| `screen` | Finds stocks by weighted criteria (fundamentals, dividend, valuation, theme, technicals) | planned ([#12](https://github.com/levn201/Financial-Support-Skill/issues/12)) |
+| `screen` | Finds stocks by weighted criteria (fundamentals, dividend, valuation, theme, technicals) | available |
 | `valuation` | Fair value via DCF and peer comparison | planned ([#13](https://github.com/levn201/Financial-Support-Skill/issues/13)) |
 | `sector` | Sector overview and competitors | planned ([#14](https://github.com/levn201/Financial-Support-Skill/issues/14)) |
 | `explain` | Explains terms and connections in plain language ("why does the stock fall despite good results?") | planned ([#15](https://github.com/levn201/Financial-Support-Skill/issues/15)) |
