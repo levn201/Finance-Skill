@@ -141,6 +141,24 @@ def test_catalysts_prefers_finnhub_when_available(fixture):
     }
 
 
+def test_catalysts_fall_back_to_yahoo_earnings_list_as_estimate(fixture):
+    sap = fixture("yahoo_sap_de.json")  # calendar only knows the past date 2026-10-21
+    listed = [{"date": "2027-01-28", "eps_estimate": 1.98, "eps_reported": None},
+              {"date": "2026-10-20", "eps_estimate": 1.83, "eps_reported": 1.89}]
+    data, warnings = core.normalize_catalysts(sap["calendar"], sap["info"], TODAY, None, listed)
+    earnings = next(e for e in data["events"] if e["type"] == "earnings")
+    assert earnings["date"] == "2027-01-28" and earnings["status"] == "upcoming" and earnings["estimated"] is True
+    assert any("treat it as an estimate" in w for w in warnings)
+    assert not any("No confirmed upcoming" in w for w in warnings)
+
+
+def test_catalysts_calendar_beats_earnings_list(fixture):
+    aapl = fixture("yahoo_aapl.json")
+    listed = [{"date": "2027-02-15", "eps_estimate": 3.0, "eps_reported": None}]
+    data, _ = core.normalize_catalysts(aapl["calendar"], aapl["info"], TODAY, None, listed)
+    assert next(e for e in data["events"] if e["type"] == "earnings")["date"] != "2027-02-15"
+
+
 def test_catalysts_without_any_data():
     data, warnings = core.normalize_catalysts({}, {}, TODAY)
     assert data == {"events": []}

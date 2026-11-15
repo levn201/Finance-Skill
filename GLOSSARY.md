@@ -17,7 +17,7 @@ A single Instrument held in the Depot, with quantity and entry price.
 _Avoid_: Holding, Investment
 
 **Depot Snapshot** (DE: _Depot-Snapshot_):
-A short, read-only text copy of the Depot and Watchlist that the investor carries into an app where the Depot itself can't be reached.
+A short, read-only text copy of the Depot, the Watchlist, the active Theses and the Investor Profile's main preferences, which the investor carries into an app where the stored data can't be reached.
 _Avoid_: Export, Backup
 
 **Watchlist** (DE: _Watchlist_):
@@ -39,8 +39,12 @@ A search across Instruments that scores each against weighted criteria and retur
 _Avoid_: Filter, Scan
 
 **Assessment** (DE: _Einschätzung_):
-A reasoned buy, hold or sell view on one Instrument, with a separate Outlook per Horizon, the reasons for and against, and what would invalidate the view. Never includes a position size.
+A reasoned buy, hold or sell view on one Instrument, with a separate Outlook per Horizon, the reasons for and against, and what would invalidate the view. Never includes a position size. For an Instrument the investor doesn't hold, hold means "wait" and sell means "don't buy".
 _Avoid_: Empfehlung, Rating, Signal
+
+**Fair Value** (DE: _Fairer Wert_):
+An estimated range for what one share is worth, derived from stated assumptions (cash flows, growth, interest rate) or from what comparable companies cost. Always a range with its assumptions, never a single price target.
+_Avoid_: Kursziel, innerer Wert
 
 **Horizon** (DE: _Zeithorizont_):
 The time frame an Outlook refers to: short-term (weeks up to about 3 months) or medium-term (about 6–18 months, the default for the overall view).

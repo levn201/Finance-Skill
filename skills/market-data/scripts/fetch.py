@@ -41,6 +41,7 @@ def cmd_status(_: argparse.Namespace) -> dict:
     profile = data_dir / "profile.json"
     data = {
         "data_dir": str(data_dir),
+        "inbox": str(data_dir / "inbox"),
         "data_dir_exists": data_dir.exists(),
         "data_dir_writable": os.access(probe, os.W_OK),
         "profile_exists": profile.is_file(),
@@ -119,7 +120,8 @@ def cmd_catalysts(args: argparse.Namespace) -> dict:
         hints.append(core.SETUP_HINT_FINNHUB)
 
     data, more_warnings = core.normalize_catalysts(
-        providers.yahoo_calendar(symbol), providers.yahoo_info(symbol), today, finnhub_rows
+        providers.yahoo_calendar(symbol), providers.yahoo_info(symbol), today, finnhub_rows,
+        providers.yahoo_earnings_dates(symbol),
     )
     return core.envelope("catalysts", symbol, data, sources, warnings + more_warnings, hints)
 

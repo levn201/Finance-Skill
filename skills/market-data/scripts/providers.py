@@ -47,6 +47,73 @@ def yahoo_history(symbol: str, period: str) -> list[tuple[str, float]]:
     return [(idx.date().isoformat(), float(close)) for idx, close in frame["Close"].items()]
 
 
+def _frame_records(frame) -> list[dict[str, Any]]:
+    if frame is None or getattr(frame, "empty", True):
+        return []
+    out = []
+    for idx, row in frame.iterrows():
+        rec = {"index": str(idx)}
+        for k, v in row.items():
+            rec[str(k)] = None if v != v else (v.item() if hasattr(v, "item") else v)  # NaN -> None
+        out.append(rec)
+    return out
+
+
+def yahoo_earnings_dates(symbol: str, limit: int = 12) -> list[dict[str, Any]]:
+    """Past and upcoming earnings dates with EPS estimate, reported EPS and surprise in %, newest first."""
+    try:
+        frame = _yf().Ticker(symbol).get_earnings_dates(limit=limit)
+    except Exception:
+        return []
+    rows = []
+    for rec in _frame_records(frame):
+        rows.append({"datetime": rec["index"], "date": rec["index"][:10], "eps_estimate": rec.get("EPS Estimate"),
+                     "eps_reported": rec.get("Reported EPS"), "surprise_pct": rec.get("Surprise(%)")})
+    return rows
+
+
+def yahoo_estimates(symbol: str) -> dict[str, list[dict[str, Any]]]:
+    """Analyst estimates by period (0q = current quarter, +1q, 0y, +1y): EPS, revenue and EPS trend."""
+    t = _yf().Ticker(symbol)
+    out = {}
+    for name, attr in (("eps", "earnings_estimate"), ("revenue", "revenue_estimate"), ("eps_trend", "eps_trend")):
+        try:
+            out[name] = _frame_records(getattr(t, attr))
+        except Exception:
+            out[name] = []
+    return out
+
+
+def yahoo_cashflow(symbol: str) -> list[dict[str, Any]]:
+    """Annual free cash flow and stock-based compensation, one row per fiscal year (NaN -> None)."""
+    try:
+        frame = _yf().Ticker(symbol).cashflow
+    except Exception:
+        return []
+    if frame is None or frame.empty:
+        return []
+    rows = []
+    for col in frame.columns:
+        def cell(name):
+            if name not in frame.index:
+                return None
+            v = frame.at[name, col]
+            return None if v != v else float(v)
+        rows.append({"year": str(col)[:10], "fcf": cell("Free Cash Flow"), "sbc": cell("Stock Based Compensation")})
+    return rows
+
+
+def yahoo_growth_estimates(symbol: str) -> dict[str, Any]:
+    """Analyst growth estimates for the stock: 0q, +1q, 0y, +1y and LTG (long-term), as fractions."""
+    try:
+        frame = _yf().Ticker(symbol).growth_estimates
+    except Exception:
+        return {}
+    if frame is None or frame.empty or "stockTrend" not in frame.columns:
+        return {}
+    return {str(k): (None if v != v else float(v)) for k, v in frame["stockTrend"].items()}
+
+
 def yahoo_search(query: str, limit: int = 8) -> list[dict[str, Any]]:
     quotes = _yf().Search(query, max_results=limit).quotes
     return [
