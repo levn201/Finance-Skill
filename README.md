@@ -18,7 +18,7 @@ It is inspired by [anthropics/financial-services](https://github.com/anthropics/
 | Skill | What it does | Status |
 |---|---|---|
 | `setup` | First-run setup: your Investor Profile (screening weights, explanation depth, horizon, risk tolerance) and optional API keys | available |
-| `depot` | Remembers your Positions and Watchlist from what you tell it ("I bought 10 SAP at €180"); creates a Depot Snapshot for the apps | planned ([#5](https://github.com/levn201/Financial-Support-Skill/issues/5)) |
+| `depot` | Remembers your Positions and Watchlist from what you tell it ("I bought 10 SAP at €180"); creates a Depot Snapshot for the apps | available |
 | `thesis` | Records why you hold or watch a stock, and checks whether that reason still holds | planned ([#6](https://github.com/levn201/Financial-Support-Skill/issues/6)) |
 | `assess` | Buy, hold or sell view on one stock, with short- and medium-term outlook, reasons for and against, and what would change the view | planned ([#7](https://github.com/levn201/Financial-Support-Skill/issues/7)) |
 | `catalysts` | Upcoming earnings, AGMs, dividends and central-bank dates for your Depot and Watchlist | planned ([#8](https://github.com/levn201/Financial-Support-Skill/issues/8)) |
