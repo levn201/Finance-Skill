@@ -31,7 +31,7 @@ These rules hold for every Assessment:
 
 1. Run market-data `status` to get the mode. In Lite Mode, see section 6.
 2. Read the Investor Profile: setup's `investor_profile.py show`. You need `default_horizon`, `risk_tolerance` and `explanation_depth`. If there is no profile, use medium-term, medium and beginner, and mention `setup` once.
-3. Resolve the Instrument with market-data `resolve` if it isn't an exact symbol.
+3. Pick the symbol. If the Instrument is a Position or on the Watchlist (see step 4), use **exactly that symbol** everywhere, e.g. `SAP.DE`, not the US ADR `SAP`. Otherwise resolve it with market-data `resolve` and prefer the home listing. A foreign listing has estimates in another currency from fewer analysts.
 4. Find where it stands for the investor:
    - depot's `depot.py show`: is it a Position, on the Watchlist, or neither?
    - thesis's `thesis.py show <SYMBOL>`: is there a Thesis?

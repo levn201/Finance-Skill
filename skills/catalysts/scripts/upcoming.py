@@ -57,7 +57,7 @@ def fetch_one(symbol: str, today: date, finnhub_key: str | None) -> tuple[str, d
             except Exception:
                 finnhub_rows = None
         data, warnings = md.normalize_catalysts(providers.yahoo_calendar(symbol), providers.yahoo_info(symbol),
-                                                today, finnhub_rows)
+                                                today, finnhub_rows, providers.yahoo_earnings_dates(symbol))
         return symbol, {"events": data["events"], "warnings": warnings}
     except Exception as exc:
         return symbol, {"events": [], "warnings": [f"lookup failed ({exc.__class__.__name__})"]}

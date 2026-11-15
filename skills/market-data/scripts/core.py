@@ -307,12 +307,13 @@ def normalize_catalysts(
     info: dict[str, Any],
     today: date,
     finnhub_earnings: list[dict[str, Any]] | None = None,
+    dated_earnings: list[dict[str, Any]] | None = None,
 ) -> tuple[dict[str, Any], list[str]]:
     """Upcoming dated events for one Instrument, plus warnings.
 
     Each event has a status: "upcoming" or "past". A past date is never presented as the next one.
-    Finnhub, when available, takes precedence for the earnings date because Yahoo dates are often
-    estimates or stale.
+    Precedence for the next earnings date: Finnhub, then Yahoo's calendar, then Yahoo's earnings-dates
+    list (rows without a reported EPS), which is always marked as estimated.
     """
     calendar = calendar or {}
     warnings: list[str] = []
@@ -343,6 +344,10 @@ def normalize_catalysts(
             d = _to_date(info.get("earningsTimestampStart"))
             earnings_dates = [d] if d else []
         upcoming = sorted(d for d in earnings_dates if d >= today)
+        listed = sorted(
+            (r for r in (dated_earnings or []) if r.get("eps_reported") is None and r["date"] >= today.isoformat()),
+            key=lambda r: r["date"],
+        )
         if upcoming:
             events.append({
                 "type": "earnings",
@@ -353,6 +358,19 @@ def normalize_catalysts(
                 "revenue_estimate": _num(calendar.get("Revenue Average")),
                 "source": YAHOO,
             })
+        elif listed:
+            events.append({
+                "type": "earnings",
+                "date": listed[0]["date"],
+                "status": "upcoming",
+                "estimated": True,
+                "eps_estimate": _round(listed[0].get("eps_estimate"), 4),
+                "source": YAHOO,
+            })
+            warnings.append(
+                f"The next earnings date ({listed[0]['date']}) comes from Yahoo's earnings list, not the company's "
+                "calendar; treat it as an estimate and confirm on the investor-relations page."
+            )
         elif earnings_dates:
             last = max(earnings_dates)
             events.append({"type": "earnings", "date": last.isoformat(), "status": "past", "source": YAHOO})

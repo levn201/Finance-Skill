@@ -53,7 +53,8 @@ def dossier_item(symbol: str, where: str, root: Path, theses: dict, today: date)
         fundamentals = md.normalize_fundamentals(info)
         rows = providers.yahoo_history(symbol, "1y")
         history = md.summarize_history(rows)
-        catalysts, cat_warnings = md.normalize_catalysts(providers.yahoo_calendar(symbol), info, today)
+        catalysts, cat_warnings = md.normalize_catalysts(providers.yahoo_calendar(symbol), info, today,
+                                                         dated_earnings=providers.yahoo_earnings_dates(symbol))
     except Exception as exc:
         item["warnings"].append(f"data lookup failed ({exc.__class__.__name__}); assess this one by web search")
         return item

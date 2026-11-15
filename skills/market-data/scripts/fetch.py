@@ -119,7 +119,8 @@ def cmd_catalysts(args: argparse.Namespace) -> dict:
         hints.append(core.SETUP_HINT_FINNHUB)
 
     data, more_warnings = core.normalize_catalysts(
-        providers.yahoo_calendar(symbol), providers.yahoo_info(symbol), today, finnhub_rows
+        providers.yahoo_calendar(symbol), providers.yahoo_info(symbol), today, finnhub_rows,
+        providers.yahoo_earnings_dates(symbol),
     )
     return core.envelope("catalysts", symbol, data, sources, warnings + more_warnings, hints)
 
