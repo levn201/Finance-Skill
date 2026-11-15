@@ -29,11 +29,13 @@ It is inspired by [anthropics/financial-services](https://github.com/anthropics/
 | `valuation` | Fair value via DCF and peer comparison | planned ([#13](https://github.com/levn201/Financial-Support-Skill/issues/13)) |
 | `sector` | Sector overview and competitors | planned ([#14](https://github.com/levn201/Financial-Support-Skill/issues/14)) |
 | `explain` | Explains terms and connections in plain language ("why does the stock fall despite good results?") | planned ([#15](https://github.com/levn201/Financial-Support-Skill/issues/15)) |
-| `market-data` | Internal helper that the other skills use to fetch prices, fundamentals and dates; you don't call it yourself | planned ([#3](https://github.com/levn201/Financial-Support-Skill/issues/3)) |
+| `market-data` | Internal helper that the other skills use to fetch prices, fundamentals and dates; you don't call it yourself | available |
 
 Outputs answer in the language you write in.
 
 ## Install
+
+Full mode needs [`uv`](https://docs.astral.sh/uv/) on your machine (`brew install uv` or `curl -LsSf https://astral.sh/uv/install.sh | sh`). The scripts install their own dependencies on first run. Without `uv` the skills fall back to Lite Mode.
 
 ### Claude Code
 
@@ -67,9 +69,14 @@ Upload `dist/financial-support.zip` as a skill (gemini.google.com or the Mac app
 
 Your personal data never lives in this repo or in the plugin folder.
 
-## Optional API key
+## Optional settings
 
-Everything works without keys. A free [Finnhub](https://finnhub.io) key improves catalyst dates and news. Run the `setup` skill to enter it, or set `FINNHUB_API_KEY` in your environment.
+Everything works without these. Run the `setup` skill to enter them, or set them in your environment:
+
+| Setting | What it adds |
+|---|---|
+| `FINNHUB_API_KEY` | A free [Finnhub](https://finnhub.io) key gives more reliable earnings dates |
+| `SEC_USER_AGENT` | Your name and e-mail (SEC requires a contact) to fetch US filings from SEC EDGAR |
 
 ## Development
 
