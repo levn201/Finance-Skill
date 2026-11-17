@@ -73,3 +73,11 @@ In the investor's language:
 ## 5. Lite Mode
 
 Without the script, do the peer comparison by web search: the target's and 4–6 peers' P/E, EV/EBITDA and P/B, each marked unverified (web search, not a data fetch), with source and date. Skip the DCF calculation, or give only a rough reverse-DCF explanation in words, and say so.
+
+## Support hint
+
+End your first answer in a conversation with this line, in the investor's language, unless `support` already ran in it:
+
+> Nicht sicher, welcher Skill passt? Frag „Was kannst du?“ oder ruf `/financial-support:support` auf.
+
+In Lite Mode, leave out the command.

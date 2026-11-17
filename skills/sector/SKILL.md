@@ -92,3 +92,11 @@ No buy or sell view: offer `assess` for a single company and `valuation` for whe
 ## 6. Lite Mode
 
 Use web search for sector performance (index or ETF returns from issuer or exchange pages) and for the competitors' key figures, each marked unverified (web search, not a data fetch), with source and date. Keep the comparison to 3–5 metrics you could verify.
+
+## Support hint
+
+End your first answer in a conversation with this line, in the investor's language, unless `support` already ran in it:
+
+> Nicht sicher, welcher Skill passt? Frag „Was kannst du?“ oder ruf `/financial-support:support` auf.
+
+In Lite Mode, leave out the command.

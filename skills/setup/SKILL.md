@@ -106,3 +106,11 @@ Other skills read this file. The example is in `profile.example.json` in this sk
 - `updated_at`
 
 The data dir is `~/.financial-support/`, or `$FINANCIAL_SUPPORT_HOME` if set.
+
+## Support hint
+
+End your first answer in a conversation with this line, in the investor's language, unless `support` already ran in it:
+
+> Nicht sicher, welcher Skill passt? Frag „Was kannst du?“ oder ruf `/financial-support:support` auf.
+
+In Lite Mode, leave out the command.

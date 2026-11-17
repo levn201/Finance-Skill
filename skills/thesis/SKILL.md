@@ -95,3 +95,11 @@ Run `gaps` when the investor asks for an overview, or after `depot` changes. It 
 - Read the Thesis from the `THESES` part of a Depot Snapshot if one is in the conversation. Otherwise ask the investor for it in chat.
 - Do the check as in section 3, with figures from web search marked as unverified (web search, not a data fetch), with source and date.
 - Nothing is saved. Say so.
+
+## Support hint
+
+End your first answer in a conversation with this line, in the investor's language, unless `support` already ran in it:
+
+> Nicht sicher, welcher Skill passt? Frag „Was kannst du?“ oder ruf `/financial-support:support` auf.
+
+In Lite Mode, leave out the command.

@@ -99,3 +99,11 @@ If the investor asks about one event ("was bedeuten die neuen Zölle für mich?"
 - Get index levels, VIX, yields and commodities by web search, marked as unverified (web search, not a data fetch), with source and date.
 - Take the Depot from a Depot Snapshot or the chat.
 - Nothing is saved, so there is no "Seit dem letzten Lagebild". Say so.
+
+## Support hint
+
+End your first answer in a conversation with this line, in the investor's language, unless `support` already ran in it:
+
+> Nicht sicher, welcher Skill passt? Frag „Was kannst du?“ oder ruf `/financial-support:support` auf.
+
+In Lite Mode, leave out the command.

@@ -114,3 +114,11 @@ Offer details on request. For any line the investor asks about ("warum SAP verka
 - Make every Assessment by web search, with figures marked as unverified, source and date.
 - Rank by the order in section 4.
 - Nothing is saved, so there is no "Seit dem letzten Depot-Check". Say so.
+
+## Support hint
+
+End your first answer in a conversation with this line, in the investor's language, unless `support` already ran in it:
+
+> Nicht sicher, welcher Skill passt? Frag „Was kannst du?“ oder ruf `/financial-support:support` auf.
+
+In Lite Mode, leave out the command.
