@@ -117,3 +117,11 @@ The script rejects incomplete Assessments, for example ones missing an Outlook p
 Do the same analysis with figures from web search, marked as unverified (web search, not a data fetch), with source and date.
 - Context comes from a Depot Snapshot or the chat.
 - There is no Journal, so skip "Seit der letzten Einschätzung" and say that nothing is saved.
+
+## Support hint
+
+End your first answer in a conversation with this line, in the investor's language, unless `support` already ran in it:
+
+> Nicht sicher, welcher Skill passt? Frag „Was kannst du?“ oder ruf `/financial-support:support` auf.
+
+In Lite Mode, leave out the command.

@@ -71,3 +71,15 @@ def test_readme_lists_every_skill():
     listed = set(re.findall(r"^\| `([a-z0-9-]+)` \|", readme, re.MULTILINE))
     missing = {s.name for s in skill_dirs()} - listed
     assert not missing, f"README skill table is missing: {sorted(missing)}"
+
+
+SUPPORT_HINT = "> Nicht sicher, welcher Skill passt? Frag „Was kannst du?“ oder ruf `/financial-support:support` auf."
+NO_SUPPORT_HINT = {"support", "daily", "market-data"}  # support itself, the unattended run, the internal helper
+
+
+def test_every_user_facing_skill_points_to_support():
+    for skill in skill_dirs():
+        if skill.name in NO_SUPPORT_HINT:
+            continue
+        text = (skill / "SKILL.md").read_text(encoding="utf-8")
+        assert "## Support hint" in text and SUPPORT_HINT in text, f"{skill.name}: missing the support hint section"

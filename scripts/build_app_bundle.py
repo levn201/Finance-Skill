@@ -25,7 +25,7 @@ OUT = ROOT / "dist" / f"{BUNDLE}.zip"
 # daily (an unattended run needs scripts and the Journal).
 NOT_IN_BUNDLE = {"market-data", "daily"}
 WORKFLOWS = ["assess", "depot-review", "depot", "thesis", "catalysts", "earnings", "valuation",
-             "sector", "market-brief", "screen", "explain", "setup"]
+             "sector", "market-brief", "screen", "explain", "setup", "support"]
 DROP_ALWAYS = {"Scripts of other skills", "Settings", "Profile format"}
 DROP = {  # sections that only make sense with scripts and stored data; the build fails if a heading disappears
     "assess": ["5. Save to the Journal"],

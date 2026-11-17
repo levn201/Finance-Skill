@@ -95,3 +95,11 @@ The snapshot is a read-only copy. Remind the investor to create a new one after 
 - **Reading the Depot:** if the conversation contains a Depot Snapshot (a block starting with `FINANCIAL-SUPPORT DEPOT SNAPSHOT v1`), read Positions and Watchlist from it, and use its `PROFILE` and `THESES` parts if present. Otherwise ask the investor what they hold.
 - **Changes:** accept them for this conversation only. Say clearly that nothing is saved and that they should make the change in Claude Code or the Gemini CLI to keep it.
 - **Values:** get prices from web search, marked as unverified (web search, not a data fetch), with source and date. Do the same calculations as in section 3 and show the arithmetic so it can be checked.
+
+## Support hint
+
+End your first answer in a conversation with this line, in the investor's language, unless `support` already ran in it:
+
+> Nicht sicher, welcher Skill passt? Frag „Was kannst du?“ oder ruf `/financial-support:support` auf.
+
+In Lite Mode, leave out the command.

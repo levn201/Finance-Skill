@@ -17,6 +17,7 @@ It is inspired by [anthropics/financial-services](https://github.com/anthropics/
 
 | Skill | What it does | Status |
 |---|---|---|
+| `support` | Start here: lists every skill with an example sentence, shows where you stand, and walks you through a first Startdurchgang | available |
 | `setup` | First-run setup: your Investor Profile (screening weights, explanation depth, horizon, risk tolerance) and optional API keys | available |
 | `depot` | Remembers your Positions and Watchlist from what you tell it ("I bought 10 SAP at €180"); creates a Depot Snapshot for the apps | available |
 | `thesis` | Records why you hold or watch a stock, and checks whether that reason still holds | available |

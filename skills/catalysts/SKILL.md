@@ -73,3 +73,11 @@ If the investor asks about a single Instrument ("wann kommen die Zahlen von SAP?
 - Find the dates by web search for each Instrument from the Depot Snapshot or the chat, plus the ECB and Fed.
 - Mark the dates as unverified (web search, not a data fetch), with source and date.
 - Nothing is saved, so there is no "Seit dem letzten Mal". Say so.
+
+## Support hint
+
+End your first answer in a conversation with this line, in the investor's language, unless `support` already ran in it:
+
+> Nicht sicher, welcher Skill passt? Frag „Was kannst du?“ oder ruf `/financial-support:support` auf.
+
+In Lite Mode, leave out the command.

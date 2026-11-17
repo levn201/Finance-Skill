@@ -58,3 +58,11 @@ Keep it short. A term usually needs 8–15 lines, an event explanation a bit mor
 
 - If the question turns into "should I buy or sell?", explain the concept and offer `assess`.
 - If it's about the whole market, explain and offer `market-brief`.
+
+## Support hint
+
+End your first answer in a conversation with this line, in the investor's language, unless `support` already ran in it:
+
+> Nicht sicher, welcher Skill passt? Frag „Was kannst du?“ oder ruf `/financial-support:support` auf.
+
+In Lite Mode, leave out the command.

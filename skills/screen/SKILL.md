@@ -109,3 +109,11 @@ Never present a Screen result as a buy recommendation.
 - Collect the key figures per candidate by web search, marked as unverified (web search, not a data fetch), with source and date.
 - Rank qualitatively along the same criteria, without pretend-precise scores.
 - Say that nothing is saved and that the ranking is less reliable.
+
+## Support hint
+
+End your first answer in a conversation with this line, in the investor's language, unless `support` already ran in it:
+
+> Nicht sicher, welcher Skill passt? Frag „Was kannst du?“ oder ruf `/financial-support:support` auf.
+
+In Lite Mode, leave out the command.
